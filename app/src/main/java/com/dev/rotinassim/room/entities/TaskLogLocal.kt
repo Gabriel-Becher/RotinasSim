@@ -30,6 +30,9 @@ data class TaskLogLocal(
     @PrimaryKey(autoGenerate = false) val id: String = UUID.randomUUID().toString(),
     val taskId: String,
     val userId: String,
-    val completedAt: Date,
-    val status: Int
+    val completedAt: Long,
+    val status: Int,
+    val updatedAt: Long,
+    val isSynced: Boolean = false,
+    val deleted: Boolean = false
 )

@@ -23,9 +23,12 @@ data class TaskLocal(
     @PrimaryKey(autoGenerate = false) val id: String = UUID.randomUUID().toString(),
     val userId: String,
     val title: String,
-    val description: String,
-    val day: Date, // dia
-    val daytime: String, //hora do dia
-    val notify: Boolean,  // se notifica
-    val recurring: String
+    val description: String?,
+    val day: Long?,
+    val daytime: String?,
+    val notify: Boolean,
+    val recurring: String?,
+    val updatedAt: Long,
+    val isSynced: Boolean = false,
+    val deleted: Boolean = false
 )
