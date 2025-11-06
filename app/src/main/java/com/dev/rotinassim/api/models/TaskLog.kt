@@ -4,9 +4,9 @@ import java.util.Date
 import java.util.UUID
 
 data class TaskLog(
-    val id: UUID,
-    val taskId: UUID,
-    val userId: UUID,
+    val id: String,
+    val taskId: String,
+    val userId: String,
     val completedAt: Date,
     val status: Int
 )

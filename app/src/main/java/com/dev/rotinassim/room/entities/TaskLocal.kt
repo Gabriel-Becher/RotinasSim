@@ -20,7 +20,7 @@ import java.util.UUID
     ]
 )
 data class TaskLocal(
-    @PrimaryKey(autoGenerate = true) val id: String = UUID.randomUUID().toString(),
+    @PrimaryKey(autoGenerate = false) val id: String = UUID.randomUUID().toString(),
     val userId: String,
     val title: String,
     val description: String,

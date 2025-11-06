@@ -4,8 +4,8 @@ import java.util.Date
 import java.util.UUID
 
 data class Task(
-    val id: UUID,
-    val userId: UUID,
+    val id: String,
+    val userId: String,
     val title: String,
     val description: String,
     val day: Date, // dia

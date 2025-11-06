@@ -27,7 +27,7 @@ import java.util.UUID
 )
 
 data class TaskLogLocal(
-    @PrimaryKey(autoGenerate = true) val id: String = UUID.randomUUID().toString(),
+    @PrimaryKey(autoGenerate = false) val id: String = UUID.randomUUID().toString(),
     val taskId: String,
     val userId: String,
     val completedAt: Date,
