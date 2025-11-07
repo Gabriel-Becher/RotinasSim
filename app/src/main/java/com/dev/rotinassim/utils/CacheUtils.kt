@@ -23,7 +23,7 @@ object CacheUtils {
                     bufferedReader -> {
                         val linha = bufferedReader.readText()
                         val lista = linha.split(";")
-                        usuario = UserLocal(lista[0], lista[1], lista[2], lista[3].toInt(), lista[4].toBoolean())
+                        usuario = UserLocal(lista[0], lista[1], lista[2])
                     }
                 }
             }
@@ -36,7 +36,7 @@ object CacheUtils {
 
     fun escreverUsuarioCache(context: Context, localUserData: UserLocal): Int {
 
-        val texto = "${localUserData.id};${localUserData.email};${localUserData.senha};${localUserData.notificationtime};${localUserData.isSynced}"
+        val texto = "${localUserData.id};${localUserData.email};${localUserData.password}"
 
         try {
             val file = File(context.cacheDir, CACHE_FILE)

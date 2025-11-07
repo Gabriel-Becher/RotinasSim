@@ -7,6 +7,5 @@ data class TaskLog(
     val id: String,
     val taskId: String,
     val userId: String,
-    val completedAt: Date,
-    val status: Int
+    val completedAt: Date?,
 )

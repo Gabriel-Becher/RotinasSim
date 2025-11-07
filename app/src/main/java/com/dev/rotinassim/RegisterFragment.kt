@@ -1,6 +1,5 @@
 package com.dev.rotinassim
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,8 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.lifecycle.lifecycleScope
+import com.dev.rotinassim.api.ApiService
+import com.dev.rotinassim.api.RetrofitInstance
+import com.dev.rotinassim.api.models.User
+import com.dev.rotinassim.room.entities.UserLocal
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,27 +67,47 @@ class RegisterFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            if(senha != repetirSenha){
-                MaterialAlertDialogBuilder(container.context).setMessage("Senhas não são iguais").setPositiveButton("Ok", null).show()
-                campoRepetirSenha.text.clear()
-            }else{
-                if(cadastro(email, senha)){
-                    MaterialAlertDialogBuilder(container.context).setMessage("Cadastro Realizado").setPositiveButton("Ok", null).show()
+            lifecycleScope.launch {
+                if(senha != repetirSenha){
+                    MaterialAlertDialogBuilder(container.context).setMessage("Senhas não são iguais").setPositiveButton("Ok", null).show()
+                    campoRepetirSenha.text.clear()
+                }else{
+                    if(cadastro(email, senha)){
+                        MaterialAlertDialogBuilder(container.context).setMessage("Cadastro Realizado").setPositiveButton("Ok", null).show()
+                        campoEmail.text.clear()
+                        campoSenha.text.clear()
+                        campoRepetirSenha.text.clear()
+                    }
 
                 }
-                campoEmail.text.clear()
-                campoSenha.text.clear()
-                campoRepetirSenha.text.clear()
             }
-
-
 
         }
         return view
     }
 
     fun cadastro(email: String, senha: String): Boolean{
-        return true
+        val cal = RetrofitInstance.INSTANCE.criarUsuario(User(id=null, email=email, password = senha))
+        var sucess = false
+        cal.enqueue(object: Callback<User>{
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                if(response.isSuccessful) {
+                    val corpo = response.body()
+                    Log.i("corpo", corpo.toString())
+                }else{
+                    Log.e("Erro", response.message().toString())
+                }
+                sucess = true
+            }
+
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                Log.e("ERRO", t.message.toString())
+
+            }
+        })
+
+
+        return sucess
     }
 
     companion object {

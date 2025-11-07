@@ -31,8 +31,4 @@ data class TaskLogLocal(
     val taskId: String,
     val userId: String,
     val completedAt: Long,
-    val status: Int,
-    val updatedAt: Long,
-    val isSynced: Boolean = false,
-    val deleted: Boolean = false
 )

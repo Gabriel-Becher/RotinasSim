@@ -29,6 +29,5 @@ data class TaskLocal(
     val notify: Boolean,
     val recurring: String?,
     val updatedAt: Long,
-    val isSynced: Boolean = false,
     val deleted: Boolean = false
 )
