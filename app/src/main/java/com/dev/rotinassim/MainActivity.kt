@@ -7,6 +7,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.dev.rotinassim.databinding.ActivityMainBinding
 import com.dev.rotinassim.room.DatabaseRoom
+import com.dev.rotinassim.room.entities.UserLocal
+import com.dev.rotinassim.utils.CacheUtils
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,8 +25,12 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        if(savedInstanceState == null){
+        val userLogged: UserLocal? = CacheUtils.lerUsuarioCache(this)
+
+        if(userLogged == null){
             mostraLogin()
+        }else{
+            mostraRegistro()
         }
     }
 
@@ -43,7 +49,4 @@ class MainActivity : AppCompatActivity() {
             mostraLogin()
         }
     }
-
-
-
 }

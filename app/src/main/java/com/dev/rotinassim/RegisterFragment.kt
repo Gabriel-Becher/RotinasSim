@@ -1,10 +1,15 @@
 package com.dev.rotinassim
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,7 +39,47 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register, container, false)
+        val view = inflater.inflate(R.layout.fragment_register, container, false)
+
+        if( container == null ){
+            return null
+        }
+
+        val campoEmail = view.findViewById<EditText>(R.id.inputEmailRegistro)
+        val campoSenha = view.findViewById<EditText>(R.id.inputSenhaRegistro)
+        val campoRepetirSenha = view.findViewById<EditText>(R.id.inputRepeatSenhaRegistro)
+        val botaoCadastro = view.findViewById<MaterialButton>(R.id.botaoCadastro)
+
+        botaoCadastro.setOnClickListener {
+            val email: String = campoEmail.text.toString()
+            val senha: String = campoSenha.text.toString()
+            val repetirSenha: String = campoRepetirSenha.text.toString()
+            if (email.isBlank() || senha.isBlank() || repetirSenha.isBlank()){
+                MaterialAlertDialogBuilder(container.context).setMessage("Campos vazios").setPositiveButton("Ok", null).show()
+                return@setOnClickListener
+            }
+
+            if(senha != repetirSenha){
+                MaterialAlertDialogBuilder(container.context).setMessage("Senhas não são iguais").setPositiveButton("Ok", null).show()
+                campoRepetirSenha.text.clear()
+            }else{
+                if(cadastro(email, senha)){
+                    MaterialAlertDialogBuilder(container.context).setMessage("Cadastro Realizado").setPositiveButton("Ok", null).show()
+
+                }
+                campoEmail.text.clear()
+                campoSenha.text.clear()
+                campoRepetirSenha.text.clear()
+            }
+
+
+
+        }
+        return view
+    }
+
+    fun cadastro(email: String, senha: String): Boolean{
+        return true
     }
 
     companion object {

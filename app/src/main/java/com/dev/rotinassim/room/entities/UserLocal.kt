@@ -7,9 +7,9 @@ import java.util.UUID
 
 @Entity(tableName = "usuarios")
 data class UserLocal(
-    @PrimaryKey(autoGenerate = false) val id: String = UUID.randomUUID().toString(),
+    @PrimaryKey(autoGenerate = false) val id: String,
     val email: String,
     val senha: String,
     val notificationtime: Int = 0,
-    val isSynced: Boolean = false
+    val isSynced: Boolean
 )
