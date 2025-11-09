@@ -1,6 +1,8 @@
 package com.dev.rotinassim
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -26,12 +28,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         val userLogged: UserLocal? = CacheUtils.lerUsuarioCache(this)
-
+        Log.i("USUARIO", userLogged.toString())
         if(userLogged == null){
             mostraLogin()
         }else{
-            mostraRegistro()
+            mostraPaginaInicial()
         }
+    }
+
+    fun mostraPaginaInicial(){
+        val intent = Intent(this, PaginaPrincipal::class.java)
+        startActivity(intent)
+        finish()
     }
 
     fun mostraLogin(){

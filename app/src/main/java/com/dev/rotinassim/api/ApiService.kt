@@ -11,4 +11,7 @@ interface ApiService {
     @POST("/users")
     fun criarUsuario(@Body userdata: User): Call<User>
 
+    @POST("/users/login")
+    fun login(@Body userdata: User): Call<User>
+
 }

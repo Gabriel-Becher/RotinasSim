@@ -15,6 +15,7 @@
         android:layout_gravity="center_horizontal"
         >
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/emailLogin"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="E-mail"
@@ -31,6 +32,7 @@
         android:layout_marginTop="83dp"
         >
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/senhaLogin"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Senha"
@@ -42,6 +44,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/botaoLogin"
         android:layout_width="210dp"
         android:layout_height="63dp"
         android:layout_marginTop="166sp"

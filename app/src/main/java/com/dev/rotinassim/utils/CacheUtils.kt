@@ -17,16 +17,18 @@ object CacheUtils {
         var usuario: UserLocal? = null
         try {
             val file = File(context.cacheDir, CACHE_FILE)
+            Log.i("Cache existe ao ler:", file.exists().toString())
             FileReader(file).use {
                 reader ->
                 BufferedReader(reader).use {
-                    bufferedReader -> {
+                    bufferedReader ->
                         val linha = bufferedReader.readText()
+                        Log.i("CACHE LIDO", linha)
                         val lista = linha.split(";")
                         usuario = UserLocal(lista[0], lista[1], lista[2])
-                    }
                 }
             }
+            Log.i("LIDO", usuario.toString())
             return usuario
         }catch (e: kotlin.Exception){
             Log.e("Erro de arquivo", e.message.toString())
@@ -42,12 +44,26 @@ object CacheUtils {
             val file = File(context.cacheDir, CACHE_FILE)
             FileWriter(file).use { writer ->
                  writer.write(texto)
+                Log.i("ESCRITO", texto)
+                Log.i("CACHE EXISTE", file.exists().toString())
             }
         }catch (e: Exception){
             Log.e("Erro de arquivo", e.message.toString())
             return 0
         }
         return 1
+    }
+
+    fun limparCache(context: Context){
+        try {
+            val file = File(context.cacheDir, CACHE_FILE)
+            FileWriter(file).use {
+                writer -> writer.write("")
+                writer.close()
+            }
+        }catch (e: kotlin.Exception){
+            Log.e("Erro", e.message.toString())
+        }
     }
 
 }
