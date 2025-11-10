@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:layout_margin="12dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <!-- Título -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Título da tarefa"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inputTitulo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapSentences" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Descrição -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="Descrição (opcional)"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inputDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:maxLines="4"
+                    android:minLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Seleção de data -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="Dia"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inputDia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:inputType="date"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Seleção de hora -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="Hora"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inputHora"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:inputType="time" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Notificação -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:paddingHorizontal="4dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Notificar"
+                    />
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/inputNotificar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <!-- Recorrência -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Recorrência"
+                android:layout_marginTop="12dp"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    >
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipSeg"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="S" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipTer"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="T" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipQuar"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Q" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipQuin"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Q" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipSex"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="S" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipSab"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="S" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipDom"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="D" />
+
+
+                </LinearLayout>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                >
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/botaoCriar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Criar"
+                    />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/botaoAtualizar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Salvar"
+                    android:visibility="gone"
+                    />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/botaoExcluir"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Excluir"
+                    android:visibility="gone"
+                    style="?attr/materialButtonOutlinedStyle" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/botaoCancelar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cancelar"
+                    style="?attr/materialButtonOutlinedStyle" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</com.google.android.material.card.MaterialCardView>

@@ -1,16 +1,15 @@
 package com.dev.rotinassim.api.models
 
-import java.util.Date
-import java.util.UUID
-
 data class Task(
     val id: String,
     val userId: String,
     val title: String,
     val description: String?,
-    val day: Date?, // dia
-    val daytime: Int, //hora do dia
-    val notify: Boolean,  // se notifica 15 minutos antes
+    val day: Long?, // dia
+    val daytime: Long, //hora do dia
+    val notify: Boolean,
     val recurring: String?,
-    val updatedAt: Date
+    val updatedAt: Long,
+    val completedAt: Long?,
+    val deleted: Boolean = false
 )

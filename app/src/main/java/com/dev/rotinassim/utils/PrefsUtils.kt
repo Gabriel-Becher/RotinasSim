@@ -1,6 +1,7 @@
 package com.dev.rotinassim.utils
 
 import android.content.Context
+import android.util.Log
 import androidx.core.content.edit
 
 object PrefsUtils {
@@ -40,6 +41,7 @@ object PrefsUtils {
             return 15
         }
         val notiTime = prefs.getInt(KEY_CONFIG, 15)
+        Log.i("Valor carregado", notiTime.toString())
         return notiTime
     }
 
@@ -47,6 +49,7 @@ object PrefsUtils {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         prefs.edit {
             putInt(KEY_CONFIG, notiTime)
+            Log.i("Valor salvo Noti", notiTime.toString())
         }
     }
 }

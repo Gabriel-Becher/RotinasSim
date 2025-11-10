@@ -6,49 +6,35 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.lifecycle.lifecycleScope
 import com.dev.rotinassim.api.RetrofitInstance
 import com.dev.rotinassim.api.models.User
-import com.dev.rotinassim.databinding.ActivityMainBinding
 import com.dev.rotinassim.databinding.FragmentLoginBinding
 import com.dev.rotinassim.room.DatabaseRoom
 import com.dev.rotinassim.room.entities.UserLocal
 import com.dev.rotinassim.utils.CacheUtils
 import com.dev.rotinassim.utils.PrefsUtils
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 class LoginFragment : Fragment() {
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentLoginBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentLoginBinding.inflate(inflater, container, false)
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
         val view = binding.root
         if(container == null){
             return null
         }
-
-
 
         binding.botaoLogin.setOnClickListener {
             val email = binding.emailLogin.text.toString()
@@ -65,10 +51,6 @@ class LoginFragment : Fragment() {
                             localUserData = UserLocal(localUser.id,localUser.email,localUser.password),
                         )
                         PrefsUtils.setUserId(context, localUser.id)
-                        MaterialAlertDialogBuilder(context)
-                            .setMessage("Login realizado localmente")
-                            .setPositiveButton("Ok", null)
-                            .show()
                         startActivity(Intent(context, PaginaPrincipal::class.java))
                         requireActivity().finish()
                     } else {
@@ -89,10 +71,6 @@ class LoginFragment : Fragment() {
                                     localUserData = UserLocal(usuario.id,usuario.email,usuario.password),
                                 )
                                 PrefsUtils.setUserId(context, usuario.id)
-                                MaterialAlertDialogBuilder(context)
-                                    .setMessage("Login realizado (via servidor)")
-                                    .setPositiveButton("Ok", null)
-                                    .show()
                                 startActivity(Intent(context, PaginaPrincipal::class.java))
                                 requireActivity().finish()
                             }
@@ -125,16 +103,5 @@ class LoginFragment : Fragment() {
                 callback(false, null)
             }
         })
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            LoginFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 }

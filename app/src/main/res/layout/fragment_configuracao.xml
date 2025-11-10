@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ConfiguracaoFragment"
+    android:padding="24dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Configurações de Notificação"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tempo de antecedência:"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp" />
+
+        <Spinner
+            android:id="@+id/tempoAntecedencia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dropdown"
+            android:layout_marginBottom="24dp" />
+
+        <Button
+            android:id="@+id/salvarButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Salvar" />
+
+    </LinearLayout>
+</FrameLayout>

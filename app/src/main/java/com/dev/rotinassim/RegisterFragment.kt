@@ -27,30 +27,19 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 class RegisterFragment : Fragment() {
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentRegisterBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentRegisterBinding.inflate(inflater, container, false)
+        _binding = FragmentRegisterBinding.inflate(inflater, container, false)
         val view = binding.root
-
         if( container == null ){
             return null
         }
-
-
-
         binding.botaoCadastro.setOnClickListener {
             val email: String = binding.inputEmailRegistro.text.toString()
             val senha: String = binding.inputSenhaRegistro.text.toString()
@@ -72,7 +61,7 @@ class RegisterFragment : Fragment() {
                         if (sucesso && usuario != null && usuario.id != null) {
                             lifecycleScope.launch {
                                 try {
-
+                                    // Salvar no banco room se o cadastro der certo
                                     DatabaseRoom.getDatabase(requireContext())
                                         .userLocalDao()
                                         .criarUsuario(
@@ -123,16 +112,5 @@ class RegisterFragment : Fragment() {
                 callback(false, null)
             }
         })
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            RegisterFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 }

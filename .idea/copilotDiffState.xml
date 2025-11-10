@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CopilotDiffPersistence">
+    <option name="pendingDiffs">
+      <map>
+        <entry key="$PROJECT_DIR$/app/src/main/res/drawable/ic_task_recorrente.xml">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/app/src/main/res/drawable/ic_task_recorrente.xml" />
+              <option name="updatedContent" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&#10;&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&#10;    android:width=&quot;24dp&quot;&#10;    android:height=&quot;24dp&quot;&#10;    android:viewportWidth=&quot;24&quot;&#10;    android:viewportHeight=&quot;24&quot;&gt;&#10;    &lt;path&#10;        android:fillColor=&quot;@color/colorSecondary&quot;&#10;        android:pathData=&quot;M12,5V1L7,6l5,5V7c3.31,0 6,2.69 6,6 0,1.01 -0.25,1.97 -0.68,2.8l1.46,1.46C19.54,15.88 20,14.5 20,13c0,-4.42 -3.58,-8 -8,-8zM6.68,8.2L5.22,6.74C4.46,8.12 4,9.5 4,11c0,4.42 3.58,8 8,8v4l5,-5 -5,-5v4c-3.31,0 -6,-2.69 -6,-6 0,-1.01 0.25,-1.97 0.68,-2.8z&quot; /&gt;&#10;&lt;/vector&gt;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
