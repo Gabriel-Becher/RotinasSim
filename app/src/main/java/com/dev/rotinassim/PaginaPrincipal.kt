@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import com.dev.rotinassim.api.RetrofitInstance
 import com.dev.rotinassim.api.models.Task
 import com.dev.rotinassim.databinding.ActivityPaginaPrincipalBinding
+import com.dev.rotinassim.notifications.TaskAlarme
 import com.dev.rotinassim.room.DatabaseRoom
 import com.dev.rotinassim.room.entities.TaskLocal
 import com.dev.rotinassim.utils.CacheUtils
@@ -78,10 +79,15 @@ class PaginaPrincipal : AppCompatActivity() {
                                 lifecycleScope.launch{
                                     lista.forEach { t ->
                                         try {
-                                            dao.upsert(t.toLocal())
+                                            val local = t.toLocal()
+                                            dao.upsert(local)
+                                            // Agenda alarme para cada tarefa sincronizada
+                                            TaskAlarme.schedule(applicationContext, local)
                                         } catch (e: Exception) {
                                         }
                                     }
+                                    // avisa tela para recarregar
+                                    supportFragmentManager.setFragmentResult("syncAtualizado", Bundle())
                                 }
                             }
                             override fun onFailure(call: Call<List<Task>>, t: Throwable) {

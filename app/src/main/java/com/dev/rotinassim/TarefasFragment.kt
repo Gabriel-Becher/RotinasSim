@@ -11,6 +11,7 @@ import com.dev.rotinassim.adapters.TarefaAdapter
 import com.dev.rotinassim.api.RetrofitInstance
 import com.dev.rotinassim.api.models.Task
 import com.dev.rotinassim.databinding.FragmentTarefasBinding
+import com.dev.rotinassim.notifications.TaskAlarme
 import com.dev.rotinassim.room.DatabaseRoom
 import com.dev.rotinassim.room.entities.TaskLocal
 import com.dev.rotinassim.utils.PrefsUtils
@@ -87,6 +88,8 @@ class TarefasFragment : Fragment() {
                 val agora = Date().time
                 val atualizada = task.copy(completedAt = agora)
                 dao.atualizarTarefa(atualizada)
+                // Cancela alarme associado
+                TaskAlarme.cancel(requireContext(), task.id)
                 carregarTarefas()
 
                 // Tenta sincronizar

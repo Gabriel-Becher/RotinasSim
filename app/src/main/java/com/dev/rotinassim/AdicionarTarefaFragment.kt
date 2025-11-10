@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import com.dev.rotinassim.api.RetrofitInstance
 import com.dev.rotinassim.api.models.Task
 import com.dev.rotinassim.databinding.FragmentAdicionarTarefaBinding
+import com.dev.rotinassim.notifications.TaskAlarme
 import com.dev.rotinassim.room.DatabaseRoom
 import com.dev.rotinassim.room.entities.TaskLocal
 import com.dev.rotinassim.utils.PrefsUtils
@@ -164,6 +165,8 @@ class AdicionarTarefaFragment : DialogFragment() {
                 )
 
                 dao.criarTarefa(tarefaLocal)
+                // Agenda alarme simples se aplicável (não recorrente por enquanto)
+                TaskAlarme.schedule(context, tarefaLocal)
 
                 val call = RetrofitInstance.INSTANCE.criarTarefa(task)
                 call.enqueue(object : Callback<Task> {
