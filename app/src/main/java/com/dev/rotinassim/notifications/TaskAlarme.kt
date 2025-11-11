@@ -14,7 +14,11 @@ import com.dev.rotinassim.R
 import com.dev.rotinassim.room.entities.TaskLocal
 import android.util.Log
 import com.dev.rotinassim.utils.PrefsUtils
+import java.util.Calendar
 import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
+import kotlin.time.Duration.Companion.hours
 
 class TaskAlarme : BroadcastReceiver() {
 
@@ -42,7 +46,6 @@ class TaskAlarme : BroadcastReceiver() {
             }
         }
 
-
         val notif = NotificationCompat.Builder(context, canalId)
             .setSmallIcon(R.mipmap.app_icon_round)
             .setContentTitle(titulo)
@@ -58,7 +61,7 @@ class TaskAlarme : BroadcastReceiver() {
     companion object {
         fun schedule(context: Context, task: TaskLocal) {
             Log.d("TaskAlarme", "schedule() chamado id=${task.id} notify=${task.notify} recurring='${task.recurring}' day=${task.day} daytime=${task.daytime}")
-            if (task.notify != true) { Log.d("TaskAlarme", "Abortando: notify=false"); return }
+            if (!task.notify) { Log.d("TaskAlarme", "Abortando: notify=false"); return }
             val proxNoti = calcularProximaNotificacao(context, task)
             if (proxNoti == null) { Log.d("TaskAlarme", "Abortando: cálculo retornou null"); return }
             val agora = System.currentTimeMillis()
@@ -98,30 +101,41 @@ class TaskAlarme : BroadcastReceiver() {
         private fun calcularProximaNotificacao(context: Context, task: TaskLocal): Long? {
             val rec = task.recurring
             val isRecorrente = !rec.isNullOrEmpty() && rec.contains('1')
-            Log.d("TaskAlarme", "Verificando recorrência: recurring='${rec}' -> isRecorrente=$isRecorrente")
-            if (isRecorrente) {
-                Log.d("TaskAlarme", "calcularProximaNotificacao: recorrente ignorado nesta etapa")
-                return null
-            }
             val antecedenciaMin = PrefsUtils.getNotiTime(context)
             val antecedenciaMs = antecedenciaMin * 60_000L
+            val baseDia = Date(task.day?:0)
+            Log.i("BAE DIOA", "${baseDia.time}")
+            val baseHora = Date(task.daytime)
+            Log.d("TaskAlarme", "Verificando recorrência: recurring='${rec}' -> isRecorrente=$isRecorrente")
+            if (isRecorrente) {
+
+                val recorrenteLocal = task.recurring[6] + task.recurring.substring(0,6)
+                val cal = Date()
+                while (recorrenteLocal[cal.day] != '1' && cal.time < System.currentTimeMillis()-antecedenciaMs) {
+                    cal.time += 24 * 60 * 60 * 1000
+                }
+                cal.hours = baseHora.hours
+                cal.minutes = baseHora.minutes
+                cal.seconds = 0
+
+                return cal.time - antecedenciaMs
+            }
+
             Log.d("TaskAlarme", "Antecedencia lida=${antecedenciaMin}min (${antecedenciaMs}ms)")
 
-            val baseDia = task.day
-            if (baseDia == null) { Log.d("TaskAlarme", "Sem baseDia -> null") ; return null }
-            val horario = task.daytime % (24 * 60 * 60 * 1000)
-            val horarioOffset = horario
-            Log.d("TaskAlarme", "baseDia=${baseDia} horarioOffset=${horarioOffset}")
-            val alvo = baseDia + horarioOffset
-            val comAntecedencia = alvo - antecedenciaMs
-            val agora = System.currentTimeMillis()
-            Log.d("TaskAlarme", "baseDia=${baseDia} horarioOffset=${horario} alvo=${alvo} comAntecedencia=${comAntecedencia} agora=${agora}")
-            return if (comAntecedencia > agora) {
-                Log.d("TaskAlarme", "Horário válido retornando comAntecedencia=$comAntecedencia")
-                comAntecedencia
-            } else {
-                Log.d("TaskAlarme", "Horário passado (comAntecedencia <= agora) retornando null")
-                null
+            if (baseDia == Date(0)) { Log.d("TaskAlarme", "Sem baseDia -> null") ; return null }
+            val horario = baseDia
+            horario.hours = baseHora.hours
+            horario.minutes = baseHora.minutes
+            horario.seconds = 0
+            horario.time = horario.time - antecedenciaMs
+            val agora = Date().time
+            Log.i("Horario calculado", "${horario.time}")
+            Log.i("Agora", "$agora")
+            if(horario.time <= agora){
+                return null
+            }else{
+                return horario.time
             }
         }
     }

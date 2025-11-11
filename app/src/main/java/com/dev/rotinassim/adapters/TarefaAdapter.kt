@@ -1,5 +1,6 @@
 package com.dev.rotinassim.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,6 +50,7 @@ class TarefaAdapter(
                 val diasSelecionados = recorrente.mapIndexedNotNull { index, c -> if (c == '1') diasAbreviados.getOrNull(index) else null }
                 if (diasSelecionados.isNotEmpty()) {
                     recorrencia.visibility = View.VISIBLE
+                    botaoConcluir.visibility = View.GONE
                     val todosRecurring = recorrente.take(diasAbreviados.size).all { it == '1' }
                     recorrencia.text = if (todosRecurring) "Todos os dias" else diasSelecionados.joinToString(", ")
                     imagem.setImageResource(R.drawable.recorrente_icon)
