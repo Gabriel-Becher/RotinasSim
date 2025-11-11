@@ -129,7 +129,7 @@ class TarefasFragment : Fragment() {
                     carregarTarefas()
                 }
 
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 dao.atualizarTarefa(task.copy(deleted = true))
                 carregarTarefas()
             }

@@ -84,7 +84,7 @@ class PaginaPrincipal : AppCompatActivity() {
                                             dao.upsert(local)
                                             // Agenda alarme para cada tarefa sincronizada
                                             TaskAlarme.schedule(applicationContext, local)
-                                        } catch (e: Exception) {
+                                        } catch (_: Exception) {
                                         }
                                     }
                                     // avisa tela para recarregar

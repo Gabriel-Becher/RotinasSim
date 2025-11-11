@@ -67,7 +67,7 @@ class TaskAlarme : BroadcastReceiver() {
 
             val intent = Intent(context, TaskAlarme::class.java).apply {
                 putExtra("taskId", task.id)
-                putExtra("titulo", task.title ?: "Tarefa")
+                putExtra("titulo", task.title)
                 putExtra("descricao", task.description ?: "Lembrete")
             }
             Log.d("TaskAlarme", "Intent criado extras taskId=${task.id}")
