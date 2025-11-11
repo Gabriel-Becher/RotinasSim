@@ -34,9 +34,11 @@ class TarefaAdapter(
             titulo.text = tarefa.title
             descricao.text = tarefa.description ?: ""
 
-            // Formato a data e hora, Long pra Data
-            val horaFormat = SimpleDateFormat("HH:mm", Locale.getDefault())// mascara de hora
-            val diaFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())// mascara de data
+            // Evita mudança de dia ao converter de UTC para timezone local: fixa timezone em UTC
+            val utc = java.util.TimeZone.getTimeZone("UTC")
+            val horaFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+            val diaFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).apply { timeZone = utc }
+
             val dia = tarefa.day?.let { diaFormat.format(Date(it)) } ?: ""
             val hora = horaFormat.format(Date(tarefa.daytime))
             data.text = "${dia} ${hora}"
