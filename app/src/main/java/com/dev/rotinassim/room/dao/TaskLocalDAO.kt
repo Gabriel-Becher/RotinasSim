@@ -29,4 +29,7 @@ interface TaskLocalDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsert(tarefa: TaskLocal)
+
+    @Query("SELECT * FROM tasks WHERE id = :id")
+    suspend fun buscarPorId(id: String): TaskLocal?
 }

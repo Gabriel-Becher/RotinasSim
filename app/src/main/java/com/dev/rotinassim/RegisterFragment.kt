@@ -50,6 +50,15 @@ class RegisterFragment : Fragment() {
             }
 
             lifecycleScope.launch {
+                if(senha.isBlank() || senha.length < 4 || repetirSenha.isBlank() || repetirSenha.length <4){
+                    MaterialAlertDialogBuilder(container.context)
+                        .setMessage("Senha deve ter no mínimo 4 caracteres")
+                        .setPositiveButton("Ok", null)
+                        .show()
+                    binding.inputSenhaRegistro.text?.clear()
+                    binding.inputRepeatSenhaRegistro.text?.clear()
+                    return@launch
+                }
                 if (senha != repetirSenha) {
                     MaterialAlertDialogBuilder(container.context)
                         .setMessage("Senhas não são iguais")

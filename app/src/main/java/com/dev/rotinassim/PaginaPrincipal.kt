@@ -82,8 +82,11 @@ class PaginaPrincipal : AppCompatActivity() {
                                         try {
                                             val local = t.toLocal()
                                             dao.upsert(local)
-                                            // Agenda alarme para cada tarefa sincronizada
-                                            TaskAlarme.schedule(applicationContext, local)
+                                            if(!local.deleted && local.notify && local.completedAt == null){
+                                                TaskAlarme.schedule(applicationContext, local)
+                                            }else{
+                                                TaskAlarme.cancel(applicationContext, local.id)
+                                            }
                                         } catch (_: Exception) {
                                         }
                                     }

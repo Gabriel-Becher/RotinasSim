@@ -26,7 +26,7 @@ data class TaskLocal(
     val day: Long?,
     val daytime: Long,
     val notify: Boolean,
-    val recurring: String?,
+    val recurring: String,
     val updatedAt: Long,
     val completedAt: Long?,
     val deleted: Boolean = false

@@ -8,7 +8,7 @@ data class Task(
     val day: Long?, // dia
     val daytime: Long, //hora do dia
     val notify: Boolean,
-    val recurring: String?,
+    val recurring: String,
     val updatedAt: Long,
     val completedAt: Long?,
     val deleted: Boolean = false

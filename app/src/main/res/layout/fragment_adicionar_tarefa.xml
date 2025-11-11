@@ -96,12 +96,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Notificar"
+                    android:labelFor="@+id/inputNotificar"
                     />
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/inputNotificar"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+
+                    />
             </LinearLayout>
 
             <!-- Recorrência -->
@@ -176,36 +180,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+
                 >
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/botaoCriar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Criar"
+                    android:layout_marginStart="20dp"
                     />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/botaoAtualizar"
+                <View
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Salvar"
-                    android:visibility="gone"
+                    android:layout_weight="1"
                     />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/botaoExcluir"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Excluir"
-                    android:visibility="gone"
-                    style="?attr/materialButtonOutlinedStyle" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/botaoCancelar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Cancelar"
-                    style="?attr/materialButtonOutlinedStyle" />
+                    android:backgroundTint="@color/colorError"
+                    android:layout_marginEnd="20dp"
+                    />
             </LinearLayout>
 
         </LinearLayout>

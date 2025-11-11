@@ -78,8 +78,6 @@ class AdicionarTarefaFragment : DialogFragment() {
 
     private fun configurarEventos() = with(binding) {
         botaoCriar.visibility = View.VISIBLE
-        botaoAtualizar.visibility = View.GONE
-        botaoExcluir.visibility = View.GONE
 
         botaoCriar.setOnClickListener {
             val tarefa = coletarDados()
@@ -114,14 +112,12 @@ class AdicionarTarefaFragment : DialogFragment() {
             }
         }
 
-        // Calcula millis para o horário (usando a data atual só como base para exibir/ordenar)
-        val cal = Calendar.getInstance().apply {
-            set(Calendar.SECOND, 0)
-            set(Calendar.MILLISECOND, 0)
-            set(Calendar.HOUR_OF_DAY, horaSelecionada ?: 0)
-            set(Calendar.MINUTE, minutoSelecionado ?: 0)
-        }
-        val horarioMillis = cal.timeInMillis
+        // Calcula millis para o horário (usando a data atual só como base para exibir/ordenar) SEM Calendar
+        val base = Date()
+        base.seconds = 0
+        base.minutes = (minutoSelecionado ?: 0)
+        base.hours = (horaSelecionada ?: 0)
+        val horarioMillis = base.time
 
         val diaSelecionado: Long? = if (isRecorrente) null else diaSelecionadoLong
 
