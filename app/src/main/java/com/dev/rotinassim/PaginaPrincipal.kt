@@ -44,6 +44,7 @@ class PaginaPrincipal : AppCompatActivity() {
         sincronizarTarefas()
         var telaAtual = R.id.nav_tasks
         alternarTela(TarefasFragment())
+        supportFragmentManager.setFragmentResult("syncAtualizado", Bundle())
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_logoff -> { sair(telaAtual); false }

@@ -1,10 +1,13 @@
 package com.dev.rotinassim.notifications
 
 import android.app.AlarmManager
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.dev.rotinassim.R
@@ -19,10 +22,28 @@ class TaskAlarme : BroadcastReceiver() {
         val taskId = intent.getStringExtra("taskId") ?: return
         val titulo = intent.getStringExtra("titulo") ?: "Tarefa"
         val descricao = intent.getStringExtra("descricao") ?: ""
-        Log.d("TaskAlarme", "onReceive disparado para taskId=$taskId titulo=$titulo")
+        Log.d("TaskAlarme", "onReceive disparado taskId=$taskId titulo=$titulo")
 
-        val canal = "canal_de_tarefas"
-        val notif = NotificationCompat.Builder(context, canal)
+        val canalId = "canal_de_tarefas"
+
+        // Preciso disso pra poder testar na api mais recente, mas funciona bem na api 23
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val nm = context.getSystemService(NotificationManager::class.java)
+            if (nm.getNotificationChannel(canalId) == null) {
+                val canal = NotificationChannel(
+                    canalId,
+                    "Tarefas",
+                    NotificationManager.IMPORTANCE_DEFAULT
+                ).apply {
+                    description = "Notificações de tarefas agendadas"
+                }
+                nm.createNotificationChannel(canal)
+                Log.d("TaskAlarme", "Canal de notificação criado id=$canalId")
+            }
+        }
+
+
+        val notif = NotificationCompat.Builder(context, canalId)
             .setSmallIcon(R.mipmap.app_icon_round)
             .setContentTitle(titulo)
             .setContentText(descricao)
@@ -88,8 +109,10 @@ class TaskAlarme : BroadcastReceiver() {
 
             val baseDia = task.day
             if (baseDia == null) { Log.d("TaskAlarme", "Sem baseDia -> null") ; return null }
-            val horario = task.daytime ?: 0L
-            val alvo = baseDia + horario
+            val horario = task.daytime % (24 * 60 * 60 * 1000)
+            val horarioOffset = horario
+            Log.d("TaskAlarme", "baseDia=${baseDia} horarioOffset=${horarioOffset}")
+            val alvo = baseDia + horarioOffset
             val comAntecedencia = alvo - antecedenciaMs
             val agora = System.currentTimeMillis()
             Log.d("TaskAlarme", "baseDia=${baseDia} horarioOffset=${horario} alvo=${alvo} comAntecedencia=${comAntecedencia} agora=${agora}")

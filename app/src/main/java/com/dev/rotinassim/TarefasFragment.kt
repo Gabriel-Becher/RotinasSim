@@ -72,7 +72,7 @@ class TarefasFragment : Fragment() {
                 val recorrentes = todas.filter { val r = it.recurring; !r.isNullOrBlank() && r.contains('1') }
                 val proximas = todas.filter { val r = it.recurring; r.isNullOrBlank() || !r.contains('1') }
 
-                proximasAdapter.atualizarLista(proximas.sortedBy { it.day ?: Long.MAX_VALUE })
+                proximasAdapter.atualizarLista(proximas.sortedBy { it.day ?: Long.MAX_VALUE  })
                 recorrentesAdapter.atualizarLista(recorrentes.sortedBy { it.daytime })
             } catch (e: Exception) {
                 e.printStackTrace()
